@@ -3,11 +3,11 @@
 namespace App\Modules\Invoices\Infrastructure\Repositories\Eloquent;
 
 use App\Domain\Exceptions\UpdateResourceFailedException;
-use App\Modules\Invoices\Application\Mappers\InvoiceMapper;
 use App\Modules\Invoices\Domain\Model\Invoice;
 use App\Modules\Invoices\Domain\Model\ValueObjects\Id;
 use App\Modules\Invoices\Domain\Repositories\InvoiceRepositoryInterface;
 use App\Modules\Invoices\Infrastructure\EloquentModels\InvoiceEloquentModel;
+use App\Modules\Invoices\Infrastructure\Mappers\InvoiceMapper;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceRepository implements InvoiceRepositoryInterface
@@ -17,12 +17,13 @@ class InvoiceRepository implements InvoiceRepositoryInterface
      * @return void
      * @throws UpdateResourceFailedException
      */
-    public function update(Invoice $invoice): void
+    public function persist(Invoice $invoice): void
     {
         try {
             DB::beginTransaction();
 
-            $invoiceEloquent = InvoiceMapper::toEloquent($invoice);
+            $invoiceEloquent = InvoiceEloquentModel::firstOrNew(['id' => $invoice->getId()]);
+            $invoiceEloquent = InvoiceMapper::toEloquent($invoiceEloquent, $invoice);
             $invoiceEloquent->save();
 
             DB::commit();

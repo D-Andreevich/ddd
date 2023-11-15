@@ -2,15 +2,21 @@
 
 namespace App\Modules\Invoices\Presentation\API\Requests;
 
+use App\Domain\Enums\StatusEnum;
 use Illuminate\Foundation\Http\FormRequest as LaravelRequest;
+use Illuminate\Validation\Rule;
 
-class FindInvoiceByIdRequest extends LaravelRequest
+class ChangeStatusInvoiceByIdRequest extends LaravelRequest
 {
 
     public function rules(): array
     {
         return [
             'id' => ['required', 'uuid'],
+            'status' => [
+                'required',
+                Rule::enum(StatusEnum::class)
+            ]
         ];
     }
 

@@ -2,17 +2,18 @@
 
 namespace App\Modules\Invoices\Application\UseCases\Queries;
 
-use App\Domain\UseCases\QueryInterface;
+use App\Domain\Application\UseCases\QueryInterface;
+use App\Modules\Invoices\Application\DTO\InvoiceData;
 use App\Modules\Invoices\Domain\Model\Invoice;
 use App\Modules\Invoices\Domain\Model\ValueObjects\Id;
 use App\Modules\Invoices\Domain\Repositories\InvoiceRepositoryInterface;
 
-class FindInvoiceByIdQuery implements QueryInterface
+final class FindInvoiceByIdQuery implements QueryInterface
 {
     private InvoiceRepositoryInterface $repository;
 
     public function __construct(
-        private readonly Id $id
+        private readonly InvoiceData $invoiceData
     )
     {
         $this->repository = app()->make(InvoiceRepositoryInterface::class);
@@ -20,6 +21,6 @@ class FindInvoiceByIdQuery implements QueryInterface
 
     public function handle(): Invoice
     {
-        return $this->repository->findById($this->id);
+        return $this->repository->findById(new Id($this->invoiceData->invoiceId));
     }
 }

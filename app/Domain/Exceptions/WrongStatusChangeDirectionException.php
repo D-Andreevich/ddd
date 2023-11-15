@@ -2,12 +2,12 @@
 
 namespace App\Domain\Exceptions;
 
-use App\Domain\Model\ValueObjects\StatusValueObject;
+use BackedEnum;
 
-final class WrongStatusChangeDirectionException extends \LogicException
+final class WrongStatusChangeDirectionException extends \DomainException
 {
-    public function __construct(StatusValueObject $currentStatus, StatusValueObject $nextStatus)
+    public function __construct(BackedEnum $currentStatus, BackedEnum $nextStatus)
     {
-        parent::__construct("Status {$currentStatus->getName()} can`t be changed to {$nextStatus->getName()}");
+        parent::__construct(sprintf("Status %s can`t be changed to %s.", $currentStatus->value, $nextStatus->value));
     }
 }

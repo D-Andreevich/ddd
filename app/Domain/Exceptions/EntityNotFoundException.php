@@ -2,10 +2,7 @@
 
 namespace App\Domain\Exceptions;
 
-class EntityNotFoundException extends \DomainException
+final class EntityNotFoundException extends \DomainException
 {
-    public function __construct(string $message = 'Entity not found')
-    {
-        parent::__construct($message);
-    }
+    protected $message = 'Entity not found';
 }

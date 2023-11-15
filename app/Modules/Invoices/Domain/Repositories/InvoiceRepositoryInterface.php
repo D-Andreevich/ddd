@@ -7,7 +7,7 @@ use App\Modules\Invoices\Domain\Model\ValueObjects\Id;
 
 interface InvoiceRepositoryInterface
 {
-    public function update(Invoice $invoice): void;
+    public function persist(Invoice $invoice): void;
 
     public function findById(Id $invoiceId): Invoice;
 

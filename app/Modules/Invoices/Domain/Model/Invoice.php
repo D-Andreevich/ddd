@@ -46,7 +46,7 @@ class Invoice extends AggregateRoot
             function ($total, $productLine) {
                 /** @var ProductLine $productLine */
                 return $total + $productLine->getTotalPrice()->getAmount();
-            });
+            }, 0);
 
         $this->totalPrice = new Price($total, CurrencyEnum::USD);
     }
@@ -59,6 +59,13 @@ class Invoice extends AggregateRoot
     public function getTotalPrice(): Price
     {
         return $this->totalPrice;
+    }
+
+    public function addProduct(ProductLine $productLine)
+    {
+        $this->status->ensureAllowsModification();
+        $this->products->add($productLine);
+        return $this;
     }
 
     public function changeStatus(StatusEnum $statusEnum)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Invoices\Application\Mappers;
+namespace App\Modules\Invoices\Infrastructure\Mappers;
 
 use App\Modules\Invoices\Domain\Model\Invoice;
 use App\Modules\Invoices\Domain\Model\ValueObjects\Date;
@@ -31,16 +31,11 @@ class InvoiceMapper
         );
     }
 
-    public static function toEloquent(Invoice $invoice): InvoiceEloquentModel
+    public static function toEloquent(InvoiceEloquentModel $invoiceEloquentModel, Invoice $invoice): InvoiceEloquentModel
     {
-        $invoiceEloquent = new InvoiceEloquentModel();
-        if ($invoice->getId()) {
-            $invoiceEloquent = InvoiceEloquentModel::query()->findOrFail($invoice->getId());
-        }
-        $invoiceEloquent->status = $invoice->getStatus();
-        $invoiceEloquent->date = $invoice->getDate();
-        $invoiceEloquent->due_date = $invoice->getDueDate();
-
-        return $invoiceEloquent;
+        $invoiceEloquentModel->status = $invoice->getStatus()->getName();
+        $invoiceEloquentModel->date = $invoice->getDate();
+        $invoiceEloquentModel->due_date = $invoice->getDueDate();
+        return $invoiceEloquentModel;
     }
 }

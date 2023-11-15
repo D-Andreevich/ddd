@@ -9,7 +9,7 @@ use App\Modules\Invoices\Domain\Model\ValueObjects\InvoiceStatusRejectedValueObj
 
 class StatusFactory
 {
-    public static function new(StatusEnum $enum)
+    public static function new(StatusEnum $enum): InvoiceStatusDraftValueObject|InvoiceStatusApprovedValueObject|InvoiceStatusRejectedValueObject
     {
         $class = match ($enum) {
             StatusEnum::DRAFT => InvoiceStatusDraftValueObject::class,
@@ -17,6 +17,5 @@ class StatusFactory
             StatusEnum::REJECTED => InvoiceStatusRejectedValueObject::class,
         };
         return new $class;
-
     }
 }

@@ -19,3 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/invoice/{id}', \App\Modules\Invoices\Presentation\API\Controllers\FindInvoiceByIdController::class);
+Route::patch('/invoice/{id}/approve', \App\Modules\Invoices\Presentation\API\Controllers\ApprovalInvoiceByIdController::class);
+Route::patch('/invoice/{id}/reject', \App\Modules\Invoices\Presentation\API\Controllers\RejectInvoiceByIdController::class);
+Route::patch('/invoice/{id}/change-status', \App\Modules\Invoices\Presentation\API\Controllers\ChangeStatusInvoiceByIdController::class);

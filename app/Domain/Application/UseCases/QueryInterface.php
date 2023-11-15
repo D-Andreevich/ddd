@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\UseCases;
+namespace App\Domain\Application\UseCases;
 
 interface QueryInterface
 {

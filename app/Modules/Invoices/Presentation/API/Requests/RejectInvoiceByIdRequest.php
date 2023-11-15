@@ -4,13 +4,13 @@ namespace App\Modules\Invoices\Presentation\API\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as LaravelRequest;
 
-class FindInvoiceByIdRequest extends LaravelRequest
+class RejectInvoiceByIdRequest extends LaravelRequest
 {
 
     public function rules(): array
     {
         return [
-            'id' => ['required', 'uuid'],
+            'id' => ['required', 'uuid']
         ];
     }
 

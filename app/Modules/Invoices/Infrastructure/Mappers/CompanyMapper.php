@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Invoices\Application\Mappers;
+namespace App\Modules\Invoices\Infrastructure\Mappers;
 
 use App\Modules\Invoices\Domain\Model\Entities\Company;
 use App\Modules\Invoices\Domain\Model\ValueObjects\City;
